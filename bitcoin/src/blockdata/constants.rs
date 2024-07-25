@@ -36,8 +36,12 @@ pub const PUBKEY_ADDRESS_PREFIX_MAIN: u8 = 0; // 0x00
 pub const SCRIPT_ADDRESS_PREFIX_MAIN: u8 = 5; // 0x05
 /// Test (tesnet, signet, regtest) pubkey address prefix.
 pub const PUBKEY_ADDRESS_PREFIX_TEST: u8 = 111; // 0x6f
+/// Canary Cat Coin script pubkey address prefix.
+pub const PUBKEY_ADDRESS_PREFIX_CCC: u8 = 1; // 0x01
 /// Test (tesnet, signet, regtest) script address prefix.
 pub const SCRIPT_ADDRESS_PREFIX_TEST: u8 = 196; // 0xc4
+/// Canary Cat Coin script address prefix.
+pub const SCRIPT_ADDRESS_PREFIX_CCC: u8 = 10; // 0x0a
 /// The maximum allowed redeem script size for a P2SH output.
 pub const MAX_REDEEM_SCRIPT_SIZE: usize = 520;
 /// The maximum allowed redeem script size of the witness script.

@@ -40,8 +40,8 @@ use secp256k1::{Secp256k1, Verification, XOnlyPublicKey};
 
 use crate::address::script_pubkey::ScriptBufExt as _;
 use crate::constants::{
-    PUBKEY_ADDRESS_PREFIX_MAIN, PUBKEY_ADDRESS_PREFIX_TEST, SCRIPT_ADDRESS_PREFIX_MAIN,
-    SCRIPT_ADDRESS_PREFIX_TEST,
+    PUBKEY_ADDRESS_PREFIX_CCC, PUBKEY_ADDRESS_PREFIX_MAIN, PUBKEY_ADDRESS_PREFIX_TEST,
+    SCRIPT_ADDRESS_PREFIX_CCC, SCRIPT_ADDRESS_PREFIX_MAIN, SCRIPT_ADDRESS_PREFIX_TEST,
 };
 use crate::crypto::key::{
     CompressedPublicKey, PubkeyHash, PublicKey, TweakedPublicKey, UntweakedPublicKey,
@@ -155,6 +155,7 @@ impl fmt::Display for AddressInner {
                 prefixed[0] = match network {
                     NetworkKind::Main => PUBKEY_ADDRESS_PREFIX_MAIN,
                     NetworkKind::Test => PUBKEY_ADDRESS_PREFIX_TEST,
+                    NetworkKind::Ccc => PUBKEY_ADDRESS_PREFIX_CCC,
                 };
                 prefixed[1..].copy_from_slice(hash.as_byte_array());
                 base58::encode_check_to_fmt(fmt, &prefixed[..])
@@ -164,6 +165,7 @@ impl fmt::Display for AddressInner {
                 prefixed[0] = match network {
                     NetworkKind::Main => SCRIPT_ADDRESS_PREFIX_MAIN,
                     NetworkKind::Test => SCRIPT_ADDRESS_PREFIX_TEST,
+                    NetworkKind::Ccc => SCRIPT_ADDRESS_PREFIX_CCC,
                 };
                 prefixed[1..].copy_from_slice(hash.as_byte_array());
                 base58::encode_check_to_fmt(fmt, &prefixed[..])

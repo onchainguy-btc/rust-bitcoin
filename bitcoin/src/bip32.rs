@@ -26,6 +26,10 @@ const VERSION_BYTES_MAINNET_PRIVATE: [u8; 4] = [0x04, 0x88, 0xAD, 0xE4];
 const VERSION_BYTES_TESTNETS_PUBLIC: [u8; 4] = [0x04, 0x35, 0x87, 0xCF];
 /// Version bytes for extended private keys on any of the testnet networks.
 const VERSION_BYTES_TESTNETS_PRIVATE: [u8; 4] = [0x04, 0x35, 0x83, 0x94];
+/// Version bytes for extended public keys on the Canary Cat Coin network.
+const VERSION_BYTES_CCC_PUBLIC: [u8; 4] = [0x02, 0x34, 0x56, 0x78];
+/// Version bytes for extended private keys on the Canary Cat Coin network.
+const VERSION_BYTES_CCC_PRIVATE: [u8; 4] = [0x02, 0x34, 0x56, 0x79];
 
 /// The old name for xpub, extended public key.
 #[deprecated(since = "0.31.0", note = "use Xpub instead")]
@@ -689,6 +693,7 @@ impl Xpriv {
         ret[0..4].copy_from_slice(&match self.network {
             NetworkKind::Main => VERSION_BYTES_MAINNET_PRIVATE,
             NetworkKind::Test => VERSION_BYTES_TESTNETS_PRIVATE,
+            NetworkKind::Ccc => VERSION_BYTES_CCC_PRIVATE,
         });
         ret[4] = self.depth;
         ret[5..9].copy_from_slice(&self.parent_fingerprint[..]);
@@ -820,7 +825,8 @@ impl Xpub {
         let mut ret = [0; 78];
         ret[0..4].copy_from_slice(&match self.network {
             NetworkKind::Main => VERSION_BYTES_MAINNET_PUBLIC,
-            NetworkKind::Test => VERSION_BYTES_TESTNETS_PUBLIC,
+            NetworkKind::Ccc => VERSION_BYTES_MAINNET_PUBLIC,
+            NetworkKind::Test => VERSION_BYTES_CCC_PUBLIC,
         });
         ret[4] = self.depth;
         ret[5..9].copy_from_slice(&self.parent_fingerprint[..]);

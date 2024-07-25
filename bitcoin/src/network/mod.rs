@@ -42,6 +42,8 @@ pub enum NetworkKind {
     Main,
     /// Some kind of testnet network.
     Test,
+    /// Canary Cat Network
+    Ccc,
 }
 
 // We explicitly do not provide `is_testnet`, using `!network.is_mainnet()` is less
