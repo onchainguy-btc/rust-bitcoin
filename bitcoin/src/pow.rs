@@ -14,6 +14,7 @@ use core::ops::{Add, Div, Mul, Not, Rem, Shl, Shr, Sub};
 use mutagen::mutate;
 
 use crate::consensus::encode::{self, Decodable, Encodable};
+use crate::consensus::Params;
 #[cfg(doc)]
 use crate::consensus::Params;
 use crate::hash_types::BlockHash;
@@ -81,6 +82,9 @@ impl Work {
 
     /// Lowest possible work value for Regtest. See comment on [`Params::pow_limit`] for more info.
     pub const REGTEST_MIN: Work = Work(U256(0x7fff_ff00_0000_0000_0000_0000_0000_0000_u128, 0));
+
+    /// Lowest possible work value for Canary Cat Coin. See comment on [`Params::pow_limit`] for more info.
+    pub const CCC_MIN: Work = Work(U256(0x0000_0000_ffff_0000_0000_0000_0000_0000_u128, 0));
 
     /// Converts this [`Work`] to [`Target`].
     pub fn to_target(self) -> Target { Target(self.0.inverse()) }

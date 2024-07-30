@@ -48,6 +48,10 @@ pub const SCRIPT_ADDRESS_PREFIX_MAIN: u8 = 5; // 0x05
 pub const PUBKEY_ADDRESS_PREFIX_TEST: u8 = 111; // 0x6f
 /// Test (tesnet, signet, regtest) script address prefix.
 pub const SCRIPT_ADDRESS_PREFIX_TEST: u8 = 196; // 0xc4
+/// Mainnet (bitcoin) pubkey address prefix.
+pub const PUBKEY_ADDRESS_PREFIX_CCC: u8 = 1; // 0x01
+/// Mainnet (bitcoin) script address prefix.
+pub const SCRIPT_ADDRESS_PREFIX_CCC: u8 = 10; // 0x0a
 /// The maximum allowed script size.
 pub const MAX_SCRIPT_ELEMENT_SIZE: usize = 520;
 /// How may blocks between halvings.
@@ -153,6 +157,19 @@ pub fn genesis_block(network: Network) -> Block {
                     time: 1296688602,
                     bits: CompactTarget::from_consensus(0x207fffff),
                     nonce: 2
+                },
+                txdata,
+            }
+        }
+        Network::Ccc => {
+            Block {
+                header: block::Header {
+                    version: block::Version::ONE,
+                    prev_blockhash: Hash::all_zeros(),
+                    merkle_root,
+                    time: 1720010684,
+                    bits: CompactTarget::from_consensus(0x1d00ffff),
+                    nonce: 1447502169
                 },
                 txdata,
             }

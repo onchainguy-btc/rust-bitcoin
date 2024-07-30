@@ -109,6 +109,20 @@ impl Params {
                 allow_min_difficulty_blocks: true,
                 no_pow_retargeting: true,
             },
+            Network::Ccc => Params {
+                network: Network::Ccc,
+                bip16_time: 1333238400,  // Apr 1 2012
+                bip34_height: 1, // not activated on regtest
+                bip65_height: 1,
+                bip66_height: 1,                    // used only in rpc tests
+                rule_change_activation_threshold: 1916, // 95%
+                miner_confirmation_window: 2016,
+                pow_limit: Work::CCC_MIN,
+                pow_target_spacing: 5 * 60,            // 5 minutes.
+                pow_target_timespan: 7 * 24 * 60 * 60, // 1 week.
+                allow_min_difficulty_blocks: true,
+                no_pow_retargeting: false,
+            },
         }
     }
 

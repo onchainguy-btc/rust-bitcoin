@@ -46,6 +46,7 @@ use crate::blockdata::opcodes::all::*;
 use crate::blockdata::script::{
     self, Instruction, PushBytes, PushBytesBuf, PushBytesErrorReport, Script, ScriptBuf,
 };
+use crate::constants::{PUBKEY_ADDRESS_PREFIX_CCC, SCRIPT_ADDRESS_PREFIX_CCC};
 use crate::crypto::key::{PublicKey, TapTweak, TweakedPublicKey, UntweakedPublicKey};
 use crate::error::ParseIntError;
 use crate::hash_types::{PubkeyHash, ScriptHash};
@@ -800,15 +801,18 @@ impl<V: NetworkValidation> Address<V> {
         let p2pkh_prefix = match self.network {
             Network::Bitcoin => PUBKEY_ADDRESS_PREFIX_MAIN,
             Network::Testnet | Network::Signet | Network::Regtest => PUBKEY_ADDRESS_PREFIX_TEST,
+            Network::Ccc => PUBKEY_ADDRESS_PREFIX_CCC,
         };
         let p2sh_prefix = match self.network {
             Network::Bitcoin => SCRIPT_ADDRESS_PREFIX_MAIN,
             Network::Testnet | Network::Signet | Network::Regtest => SCRIPT_ADDRESS_PREFIX_TEST,
+            Network::Ccc => SCRIPT_ADDRESS_PREFIX_CCC,
         };
         let bech32_hrp = match self.network {
             Network::Bitcoin => "bc",
             Network::Testnet | Network::Signet => "tb",
             Network::Regtest => "bcrt",
+            Network::Ccc => "ccc",
         };
         let encoding =
             AddressEncoding { payload: &self.payload, p2pkh_prefix, p2sh_prefix, bech32_hrp };
@@ -1029,6 +1033,7 @@ impl Address<NetworkUnchecked> {
         match (self.network, network) {
             (a, b) if a == b => true,
             (Network::Bitcoin, _) | (_, Network::Bitcoin) => false,
+            (Network::Ccc, _) | (_, Network::Ccc) => false,
             (Network::Regtest, _) | (_, Network::Regtest) if !is_legacy => false,
             (Network::Testnet, _) | (Network::Regtest, _) | (Network::Signet, _) => true,
         }

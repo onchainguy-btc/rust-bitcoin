@@ -75,6 +75,8 @@ pub enum Network {
     Signet,
     /// Bitcoin's regtest network.
     Regtest,
+    /// Canary Cat Coin.
+    Ccc,
 }
 
 impl Network {
@@ -119,6 +121,7 @@ impl Network {
             Network::Testnet => "test",
             Network::Signet => "signet",
             Network::Regtest => "regtest",
+            Network::Ccc => "canarycatcoin",
         }
     }
 
@@ -211,6 +214,7 @@ impl fmt::Display for Network {
             Testnet => "testnet",
             Signet => "signet",
             Regtest => "regtest",
+            Ccc => "canarycatcoin"
         };
         write!(f, "{}", s)
     }
@@ -256,6 +260,8 @@ impl Magic {
     pub const SIGNET: Self = Self([0x0A, 0x03, 0xCF, 0x40]);
     /// Bitcoin regtest network magic bytes.
     pub const REGTEST: Self = Self([0xFA, 0xBF, 0xB5, 0xDA]);
+    /// Canary Cat Coin network magic bytes.
+    pub const CCC: Self = Self([0xb1, 0xf7, 0x44, 0x2c]);
 
     /// Create network magic from bytes.
     pub fn from_bytes(bytes: [u8; 4]) -> Magic { Magic(bytes) }
@@ -292,6 +298,7 @@ impl From<Network> for Magic {
             Network::Testnet => Magic::TESTNET,
             Network::Signet => Magic::SIGNET,
             Network::Regtest => Magic::REGTEST,
+            Network::Ccc => Magic::CCC,
         }
     }
 }
