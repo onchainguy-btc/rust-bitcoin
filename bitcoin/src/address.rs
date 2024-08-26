@@ -1118,6 +1118,7 @@ impl FromStr for Address<NetworkUnchecked> {
             "bc" | "BC" => Some(Network::Bitcoin),
             "tb" | "TB" => Some(Network::Testnet), // this may also be signet
             "bcrt" | "BCRT" => Some(Network::Regtest),
+            "ccc" | "CCC" => Some(Network::Ccc),
             _ => None,
         };
         if let Some(network) = bech32_network {
@@ -1162,6 +1163,8 @@ impl FromStr for Address<NetworkUnchecked> {
                 (Network::Testnet, Payload::PubkeyHash(PubkeyHash::from_slice(&data[1..]).unwrap())),
             SCRIPT_ADDRESS_PREFIX_TEST =>
                 (Network::Testnet, Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap())),
+            PUBKEY_ADDRESS_PREFIX_CCC =>
+                (Network::Ccc, Payload::PubkeyHash(PubkeyHash::from_slice(&data[1..]).unwrap())),
             x => return Err(Error::Base58(base58::Error::InvalidAddressVersion(x))),
         };
 
